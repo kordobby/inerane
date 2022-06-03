@@ -7,6 +7,9 @@ import { initializeApp } from "firebase/app";
 import { getAuth } from "firebase/auth";
 import "firebase/auth";
 
+/* Storage */
+import { getStorage } from 'firebase/storage';
+
 /* 인증 정보 */
 const firebaseConfig = {
   apiKey: "AIzaSyAz0UZbEnnScQYg8AtdmF6Ty6EluiV-C6I",
@@ -23,6 +26,8 @@ const app = initializeApp(firebaseConfig);
 
 export const auth = getAuth();
 
+// FB storage 설정
+export const storage = getStorage(app);
 // FireStore 초기화 : 포맷 개념이 아니라 기본적인 Setting을 해준다는 개념
 // Initialize Cloud Firestore and get a ref to the service
 export const db = getFirestore(app);

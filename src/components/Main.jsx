@@ -23,7 +23,7 @@ const MainBg = styled.div`
 
   z-index : -5;
 
-  background-image: linear-gradient(rgba(0, 0, 0, 0.7), rgba(0, 0, 0, 0.7)), url('${IneImg}');
+  background-image: linear-gradient(rgba(0, 0, 0, 0.3), rgba(0, 0, 0, 0.7)), url('${IneImg}');
   background-repeat : no-repeat;
   background-size: cover;
 

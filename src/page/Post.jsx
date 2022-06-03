@@ -8,11 +8,14 @@ import styled from 'styled-components';
 
 const Post = () => {
 
+
 return (
   <>
+  {/* data : image upload,  */}
   </>
 )
 }
 
+// const 
 
 export default Post;

@@ -32,6 +32,7 @@ return (
   <LoginPage>
     <div>ID(email) : <input ref = {idRef} ></input></div>
     <div>PW : <input required type = "password" ref = {pwRef} minLength="6" maxLength="12" ></input></div>
+    {/* img upload */}
     <button onClick = {loginFB}>login</button>
   </LoginPage>
 )
