@@ -27,7 +27,7 @@ export const HeaderBox = styled.div`
   box-sizing: border-box;
   width : 100%;
   height : 80px;
-  background-color: #6bbaff;
+  background-color: black;
   
   display : flex;
   justify-content: space-between;
@@ -39,6 +39,7 @@ export const HeaderBox = styled.div`
   top : 0;
 
   z-index : 5;
+
 `;
 
 export const TitleBox = styled.div`
