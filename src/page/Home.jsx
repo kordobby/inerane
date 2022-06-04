@@ -2,17 +2,7 @@ import PostBtn from "../components/PostBtn";
 import Main from "../components/Main";
 import MainIsLogin from "../components/MainIsLogin";
 
-import { useEffect } from "react";
-import { useDispatch } from 'react-redux';
-import { loadPostFB } from "../redux/modules/boardReducer";
-
 const Home = ( {login} ) => {
-
-  const dispatch = useDispatch();
-
-  useEffect(() => {
-    dispatch(loadPostFB());
-  }, [dispatch]);
 
   return (
     <>
