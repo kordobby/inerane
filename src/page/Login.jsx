@@ -1,22 +1,22 @@
 import React from "react";
-import { useState } from "react";  
 /* Style */
 import styled from 'styled-components';
 
 /* Auth setup */
 import { signInWithEmailAndPassword } from 'firebase/auth';
 import { auth } from '../firebase-config'; 
-import { getDocs, where, collection, query } from 'firebase/firestore';
-import { db } from '../firebase-config';
 
 /* Router */
 import { useNavigate } from "react-router-dom";
 import { setCookie, getCookie } from "../redux/cookies";
+import { getUserFB } from "../redux/modules/userReducer";
+import { useDispatch } from 'react-redux';
 
 const Login = () => {
 
   /* Navigate */
   const navigate = useNavigate();
+  const dispatch = useDispatch();
 
   /* input form => value 접근 */
   const idRef = React.useRef();
@@ -35,10 +35,8 @@ const Login = () => {
     let cookie = getCookie("user_id");
     console.log(cookie);
 
-    const nowUser = await getDocs(query(collection(db, "user-info"), where("userId", "==", cookie)));
-    nowUser.forEach(value => { value.data();});
-    
-    console.log(nowUser);
+    dispatch(getUserFB());
+
     alert("어서오세요! :-)")
     navigate('/') 
     }
