@@ -1,10 +1,13 @@
 import { getCookie } from "../cookies";
 import { db } from '../../firebase-config';
 import { getDocs, where, collection, query } from 'firebase/firestore';
-import { onIdTokenChanged } from "firebase/auth";
 
 const initUser = {
-  user : []
+  user : {
+    userId : null,
+    userName : null,
+    userImg : null
+  }
 }
 
 const GET_USER = 'userReducer/GET_USER';
