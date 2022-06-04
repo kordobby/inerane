@@ -17,7 +17,11 @@ import styled from 'styled-components';
 /* Router */
 import { useNavigate } from "react-router-dom";
 
+import { getUserFB } from "../redux/modules/userReducer";
+import { useDispatch } from 'react-redux';
+
 const SignUp = () => {
+  const dispatch = useDispatch();
 
   /* Navigate */
   const navigate = useNavigate();
@@ -44,7 +48,9 @@ const SignUp = () => {
   setCookie("user_id", idRef.current.value);
   let cookie = getCookie("user_id");
   console.log(cookie);
-  
+
+  dispatch(getUserFB());
+
   alert("회원가입 성공! 바로 로그인 해드릴게요! :-)")
   navigate('/') };
 
