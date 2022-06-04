@@ -1,13 +1,15 @@
 import React from "react";
 
-/* user Sign-up :: Auth */
-import { createUserWithEmailAndPassword } from 'firebase/auth';
-import { auth, db, storage } from '../firebase-config';
+/* FireBase Setup */
+import { collection, addDoc } from 'firebase/firestore';
+// user sign up 
+import { createUserWithEmailAndPassword } from 'firebase/auth';  // 회원가입 function
+import { auth, db, storage } from '../firebase-config';  
 // file upload
 import { ref, uploadBytes, getDownloadURL } from 'firebase/storage';
 
-// 1. addDoc : 원하는 컬렉션에 data 추가
-import { collection, addDoc } from 'firebase/firestore';
+/* Cookies */
+import { setCookie, getCookie } from "../redux/cookies";
 
 /* Style */
 import styled from 'styled-components';
@@ -29,20 +31,20 @@ const SignUp = () => {
   /* Sign-up Func */
   // 비동기 요청 => FB에 요청을 하는 것이니까! 그러니, async-await 사용
   const signUpFB = async () => {
-
-    // console.log(fileLinkRef);
-    // return;
-
-    const userInfo = await createUserWithEmailAndPassword( auth,
+  // console.log(fileLinkRef);
+  // return;
+  const userInfo = await createUserWithEmailAndPassword( auth,
                                                            idRef.current.value,
                                                            pwRef.current.value );
- 
-    // console.log(userInfo);
   /* DB DATA 저장 확인 => DB에 저장됨 */
   const userData = await addDoc(collection(db, "user-info"), { userId:idRef.current.value,
                                                                userName:nameRef.current?.value,
                                                                imgUrl:fileLinkRef.current?.url });
-  // console.log(userData.id);
+  
+  setCookie("user_id", idRef.current.value);
+  let cookie = getCookie("user_id");
+  console.log(cookie);
+  
   alert("회원가입 성공! 바로 로그인 해드릴게요! :-)")
   navigate('/') };
 
