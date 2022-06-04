@@ -22,25 +22,33 @@ import { auth } from './firebase-config';
 
 /* Login Feature :: auth */
 import { onAuthStateChanged, signOut } from 'firebase/auth';
-// import { getDocs, where, collection, query } from 'firebase/firestore';
+import { deleteCookie } from './redux/cookies';
 
 function App() {
   const dispatch = useDispatch();
 
-  useEffect(() => {
-    dispatch(getUserFB());
-  }, [dispatch]);
+  /* 로그인 func으로 옮김 */
+  // 현재 로그인 중인 user data Load => Store state update
+  // useEffect(() => {
+  //   dispatch(getUserFB());
+  // }, [dispatch]);
 
-  const [is_login, setIsLogin] = React.useState(false);
-
-  const currentUser = auth.currentUser?.email;
-  // console.log(currentUser);
-
+  // Login user data 받아오기
   const nowUserState = useSelector((state) => state.userReducer);
-  console.log(nowUserState);  // Login user's info
-  console.log(is_login); // Login state check
+  // console.log(is_login); // Login state check
+  // console.log(nowUserState.user[0]);  // Login user's info
 
-
+  const userDataList = nowUserState?.user[0];
+  console.log(userDataList);
+  const nickName = userDataList?.userName;
+  console.log(nickName);
+  /*
+  nowUserState = {
+    user : [  ]
+  }
+  */
+// 로그인 상태관리를 위해 useState 사용 : false(로그아웃 상태), true(로그인 상태)
+  const [is_login, setIsLogin] = React.useState(false);
   const loginCheck = async (user) => {
     if (user) {
       setIsLogin(true);
@@ -48,6 +56,7 @@ function App() {
       setIsLogin(false);
     }
   }
+
   // Side Effect 확인하는 것이기 때문에, login check는 useEffect
   React.useEffect(() => {
     onAuthStateChanged(auth, loginCheck);
@@ -56,15 +65,15 @@ function App() {
   /* Logout Function */
   const logout = () => {
     signOut(auth).then(()=> {setIsLogin(false);});
+    deleteCookie("user_id");
   }
-
 
   return (
     <>
       { /* login 상태에 따른 Header 설정 변경 + Posting btn도 비슷하게 구현해봐야지 */ }
       {is_login ? (
         <>
-        <HeaderIsLogin logout = {logout}/>
+        <HeaderIsLogin name = {nickName} logout = {logout}/>
         </>
       ) : (
         <>
@@ -72,9 +81,9 @@ function App() {
         </>
       )}
      <Routes>
-      <Route path="/" element = { <Home login ={is_login} /> } />
-      <Route path="/signup" element = { <SignUp /> } />
-      <Route path="/login" element = { <Login /> } />
+        <Route path="/" element = { <Home login ={is_login} /> } />
+        <Route path="/signup" element = { <SignUp /> } />
+        <Route path="/login" element = { <Login /> } />
      </Routes>
     </>
   );
