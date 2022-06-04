@@ -6,7 +6,7 @@ import { useSelector } from 'react-redux';
 const MainIsLogin = () => {
 
   const myPostList = useSelector((state) => state.boardReducer.list);
-  console.log(myPostList);
+  // console.log(myPostList);
 
   return (
     <div className = "timeline-wrap">

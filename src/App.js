@@ -1,4 +1,5 @@
 import React from 'react';
+import { useEffect } from 'react';
 
 /* import Pages */
 import Home from './page/Home';
@@ -9,22 +10,36 @@ import Login from './page/Login';
 import Header from './components/Header';
 import HeaderIsLogin from './components/HeaderIsLogin';
 
+/* Reducer */
+import { useSelector, useDispatch } from 'react-redux';
+import { getUserFB } from './redux/modules/userReducer';
+
 /* Router setup */
 import { Routes, Route } from 'react-router-dom';
 
 /* Signup Feature :: auth */
-import { auth, db } from './firebase-config';
-
+import { auth } from './firebase-config';
 
 /* Login Feature :: auth */
 import { onAuthStateChanged, signOut } from 'firebase/auth';
-import PostBtn from './components/PostBtn';
+// import { getDocs, where, collection, query } from 'firebase/firestore';
 
 function App() {
+  const dispatch = useDispatch();
+
+  useEffect(() => {
+    dispatch(getUserFB());
+  }, [dispatch]);
+
   const [is_login, setIsLogin] = React.useState(false);
 
+  const currentUser = auth.currentUser?.email;
+  // console.log(currentUser);
+
+  const nowUserState = useSelector((state) => state.userReducer);
+  console.log(nowUserState);  // Login user's info
   console.log(is_login); // Login state check
-  console.log(auth.currentUser); // Login state user check
+
 
   const loginCheck = async (user) => {
     if (user) {

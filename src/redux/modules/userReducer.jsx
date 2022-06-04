@@ -1,39 +1,36 @@
-// load 만 해오면 되려나?
-
-import { collection, getDocs, doc } from 'firebase/firestore';
+import { getCookie } from "../cookies";
 import { db } from '../../firebase-config';
-
-const LOAD_USER = 'userReducer/LOAD_USER';
+import { getDocs, where, collection, query } from 'firebase/firestore';
+import { onIdTokenChanged } from "firebase/auth";
 
 const initUser = {
-  isLogin : false,
-  userId : "",
-  userName : "",
-  userImg : ""
+  user : []
 }
 
-function loadUser (payload) {
-  return { type : LOAD_USER, payload }
+const GET_USER = 'userReducer/GET_USER';
+
+const getUser = (payload) => {
+  return { type : GET_USER, payload}
 }
 
-export const loadUserFB = () => {
+export const getUserFB = () => {
   return async function (dispatch) {
-    const user_data = await(collection(db, "user-info"));
-    let user_list = [];
-
-    user_data.forEach((doc) => {
-      user_list.push( { id : doc.id, ...doc.data() });
+    let cookie = getCookie("user_id");
+    console.log(cookie);
+    let getUserInfo = []; // DB에서 가져온 유저 정보 저장
+    const nowUser = await getDocs(query(collection(db, "user-info"), where("userId", "==", cookie)));
+    nowUser.forEach( doc => {
+      getUserInfo.push({ id: doc.id, ...doc.data() });
     });
-    dispatch(loadUser(user_list));
-  }
-}
+    dispatch(getUser(getUserInfo));
+}};
 
-export default function userReducer( state = initUser, action ) {
+export default function userReducer ( state = initUser, action) {
   switch (action.type) {
-    case LOAD_USER : {
-      return {...state, list: action.user_list}
+    case GET_USER : {
+      return {...state, user : action.payload}
     }
-    default : 
+    default :
     return state;
   }
 }
