@@ -13,6 +13,10 @@ import { setCookie, getCookie } from "../redux/cookies";
 
 /* Style */
 import styled from 'styled-components';
+import { Line, UserTitle, LoginPageBox, InputBox, Button } from './Login';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faKiwiBird } from "@fortawesome/free-solid-svg-icons";
+
 
 /* Router */
 import { useNavigate } from "react-router-dom";
@@ -35,7 +39,7 @@ const SignUp = () => {
   /* Sign-up Func */
   // 비동기 요청 => FB에 요청을 하는 것이니까! 그러니, async-await 사용
   const signUpFB = async () => {
-  // console.log(fileLinkRef);
+  console.log(fileLinkRef);
   // return;
   const userInfo = await createUserWithEmailAndPassword( auth,
                                                            idRef.current.value,
@@ -50,12 +54,13 @@ const SignUp = () => {
   console.log(cookie);
 
   dispatch(getUserFB());
-
+  console.log("끝")
   alert("회원가입 성공! 바로 로그인 해드릴게요! :-)")
-  navigate('/') };
+  // navigate('/')
+ };
 
   const uploadProfileFB = async (event) => {
-    // console.log(event.target.files)
+    console.log(event.target.files)
     const uploaded_profile = await uploadBytes(
       ref(storage, `images/${event.target.files[0].name}`),
       event.target.files[0]);
@@ -66,24 +71,40 @@ const SignUp = () => {
     console.log(file_url);
   };
 
-  
-
   return (
     <SignUpWrap>
-      <input ref = {idRef} type = "email" required placeholder="이메일기입"></input>
-      <input ref = {nameRef} type = "text" required placeholder="이름작성"></input>
-      <input ref = {pwRef} minLength="6" maxLength="12" type = "password" required placeholder="비밀번호확인"></input>
-      <input type = "file" onChange = {uploadProfileFB} required ></input>
-      <button onClick = {signUpFB}>가입하기</button>
+      <LoginPageBox style = {{height : "500px"}}>
+        <UserTitle>SIGN UP</UserTitle>
+        <InputBox ref = {idRef} type = "email" required placeholder="사용하실 e-mail ID 를 입력해주세요."></InputBox>
+        <Line/>
+        <InputBox ref = {nameRef} type = "text" required placeholder="닉네임을 입력해주세요."></InputBox>
+        <Line/>
+        <InputBox ref = {pwRef} minLength="6" maxLength="12" type = "password" required placeholder="비밀번호를 작성해주세요. (6자리 이상)"></InputBox>
+        <Line/>
+        <div className = "filebox">
+          <input className = "upload-img"
+                value = "프로필 이미지를 선택해주세요!"
+                placeholder = "프로필 이미지를 선택해주세요!"
+                style = {{margin : "20px 0"}} 
+                required
+                onChange = {uploadProfileFB}></input>
+          <label htmlFor ="file">파일 찾기</label>
+          <input type ="file" id = "file" onChange = {uploadProfileFB} required/>
+        </div>
+
+        <Button onClick = {signUpFB}><FontAwesomeIcon icon = {faKiwiBird} /></Button>
+      </LoginPageBox>
     </SignUpWrap>
   );
 }
 
-const SignUpWrap = styled.div`
+export const SignUpWrap = styled.div`
+  margin-top: 30px;
   display : flex;
-  width : 100%;
-  height : 100vh;
   justify-content: center;
   align-items: center;
+
+  width : 100%;
+  height : 100vh;
 `
 export default SignUp;

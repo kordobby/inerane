@@ -8,7 +8,7 @@ const PostBtn = () => {
 
   return (
     <PostWrap>
-      <Link to = "/login"><PostLink>i</PostLink></Link>
+      <Link to = "/post"><PostLink>i</PostLink></Link>
     </PostWrap>
   );
 }
@@ -21,7 +21,7 @@ const PostWrap = styled.div`
   align-items: flex-end;
   position : fixed;
   top : 0;
-  z-index : 0;
+  z-index : 5;
 `
 const PostLink = styled.div`
   width : 50px;

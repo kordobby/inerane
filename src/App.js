@@ -5,6 +5,8 @@ import { useEffect } from 'react';
 import Home from './page/Home';
 import SignUp from './page/SignUp';
 import Login from './page/Login';
+import Post from './page/Post';
+import Update from './page/Update';
 
 /* import Components */
 import Header from './components/Header';
@@ -29,9 +31,9 @@ function App() {
 
   /* 로그인 func으로 옮김 */
   // 현재 로그인 중인 user data Load => Store state update
-  // useEffect(() => {
-  //   dispatch(getUserFB());
-  // }, [dispatch]);
+  useEffect(() => {
+    dispatch(getUserFB());
+  }, [dispatch]);
 
   // Login user data 받아오기
   const nowUserState = useSelector((state) => state.userReducer);
@@ -40,6 +42,8 @@ function App() {
 
   const userDataList = nowUserState?.user[0];
   console.log(userDataList);
+  const userIdCheck = userDataList?.userId;
+  const userPropImg = userDataList?.imgUrl;
   const nickName = userDataList?.userName;
   console.log(nickName);
   /*
@@ -84,6 +88,8 @@ function App() {
         <Route path="/" element = { <Home login ={is_login} /> } />
         <Route path="/signup" element = { <SignUp /> } />
         <Route path="/login" element = { <Login /> } />
+        <Route path="/update/:id/:idx" element = { <Update idCheck = {userIdCheck} userProfile = {userPropImg} name = {nickName} /> } />
+        <Route path="/post" element = { <Post idCheck = {userIdCheck} userProfile = {userPropImg} name = {nickName}/> } />
      </Routes>
     </>
   );

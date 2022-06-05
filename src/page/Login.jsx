@@ -1,6 +1,8 @@
 import React from "react";
 /* Style */
 import styled from 'styled-components';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faRightToBracket } from "@fortawesome/free-solid-svg-icons";
 
 /* Auth setup */
 import { signInWithEmailAndPassword } from 'firebase/auth';
@@ -43,16 +45,72 @@ const Login = () => {
 
 return (
   <LoginPage>
-    <div>ID(email) : <input ref = {idRef} ></input></div>
-    <div>PW : <input required type = "password" ref = {pwRef} minLength="6" maxLength="12" ></input></div>
+    <LoginPageBox>
+    <UserTitle>LOGIN</UserTitle>
+    <InputBox ref = {idRef} placeholder = "e-mail ID" required></InputBox>
+    <Line/>
+    <InputBox required type = "password" ref = {pwRef} minLength="6" maxLength="12" placeholder = "비밀번호 (6자리 이상)" ></InputBox>
+    <Line/>
     {/* img upload */}
-    <button onClick = {loginFB}>login</button>
+    <Button onClick = {loginFB}><FontAwesomeIcon icon = {faRightToBracket}/></Button>
+    </LoginPageBox>
   </LoginPage>
 )
 }
 
-const LoginPage = styled.div`
-  margin-top: 150px;
+export const LoginPage = styled.div`
+  margin-top: 30px;
+  display : flex;
+  justify-content: center;
+  align-items: center;
+
+  width : 100%;
+  height : 100vh;
+`
+export const UserTitle = styled.span`
+  font-size : 40px;
+  font-weight : 700;
+  margin-bottom: 10px;
+`;
+
+export const LoginPageBox = styled.div`
+  width : 500px;
+  height : 300px;
+
+  box-sizing: border-box;
+  display : flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  background-color: #f5f5f5;
+  border-radius: 50px;
+  box-shadow: rgba(99, 99, 99, 0.2) 0px 2px 8px 0px;
 `
 
+export const InputBox = styled.input`
+  width : 70%;
+  height : 50px;
+
+  background-color: #f5f5f5;
+  border: none;
+
+  font-size: 15px;
+  text-align: center;
+`
+export const Button = styled.button`
+  margin-top: 10px;
+  width : 50px;
+  height : 50px;
+  border-radius: 50px;
+
+  font-size: 18px;
+  color : black;
+`
+
+export const Line = styled.div`
+  height : 1px;
+  background-color : black;
+  width : 70%;
+  margin-bottom: 10px;
+`
 export default Login;

@@ -25,15 +25,15 @@ const UPDATE_POST = 'boardReducer/UPDATE_POST';
 
 /* ACTION FUNC */
 // [ SERVER REQ ]
-const getPostRequest = (payload) => {
+export const getPostRequest = (payload) => {
   return { type : GET_REQ, payload }
 };
 
-const getPostSuccess = (payload) => {
+export const getPostSuccess = (payload) => {
   return { type : REQ_SUCCESS, payload }
 };
 
-const getPostError = (payload) => {
+export const getPostError = (payload) => {
   return { type : REQ_ERROR, payload }
 };
 
@@ -61,7 +61,7 @@ export const loadPostFB = () => {
   return async function(dispatch) {
     dispatch(getPostRequest(true));
     try {
-      const post_data = await getDocs(collection(db, "ineboard"));
+      const post_data = await getDocs(collection(db, "hamgallery"));
       let post_list = [];
 
       post_data.forEach((doc) => {
@@ -76,50 +76,74 @@ export const loadPostFB = () => {
   }};
 
 // [ CREATE ]
-export const addPostFB = (postData) => {
+export const addPostFB = (payload) => {
+  console.log(payload)
   return async function (dispatch) {
-    const docRef = await addDoc(collection(db, "ineboard"), postData);
-    const post_data = { id:docRef.id, ...postData };
+    const docRef = await addDoc(collection(db, "hamgallery"), payload);
+    const post_data = { id:docRef.id, ...payload };
+    console.log(post_data);
     dispatch(addPost(post_data));
   }
 }
 
+// export const addPostFB = (payload) => async (dispatch) => {
+//   const docRef = await addDoc(collection(db, "hamgallery"), payload);
+//   dispatch(addPost({ id: docRef.id, ...payload }));
+// };
+
 // [ DELETE ]
 export const delPostFB = (payload) => async (dispatch, getState) => {
-  const docRef = doc(db, "ineboard", payload);
+  const docRef = doc(db, "hamgallery", payload);
   await deleteDoc(docRef);
-  const post_idx = getState().boardReducer.list.fineIndex((value) => {
-    return value.id === payload;
-  });
+  const post_idx = getState().boardReducer.list.findIndex((value) => {
+     console.log(value.id); // 각
+     return value.id === payload;  // 
+   });
+  console.log(post_idx); // 배열의 index?
   dispatch(deletePost(post_idx));
-  dispatch(loadPostFB());
+  // dispatch(loadPostFB()); => 리듀서를 고쳤으니 이제 이건 필요가 없다!
 }
 
 // [ UPDATE ]
 export const updatePostFB = (payload, index) => async (dispatch) => {
-  const docRef = doc(db, "ineboard", payload.id);
+  console.log(payload);
+  console.log(payload.id);
+  console.log(index);
+  const docRef = doc(db, "hamgallery", payload.id);
   await updateDoc(docRef, {
-  
-  })
-}
+    ineImg : payload.ineImg,
+    ineText : payload.ineText
+  });
+  dispatch(updatePost({payload, index}));
+};
 
 /* REDUCER */
 export default function postReducer(state = initialState, action = {}) {
+  console.log(action)
+  console.log(state)
   switch (action.type) {
     case LOAD_POST :
       return { ...state, list : action.payload}
     case ADD_POST :
-      const newPostList = [...state.list];
-      return { ...state, list : newPostList };
+    //   return {
+    //     ...state,
+    //     list: [...state.list, action.payload]
+    // }
+      return {
+        ...state, list : [...state.list]
+      }
     case DELETE_POST :
       return {
         ...state,
-        list : state.list.filter((value) => {
-          return (value.id !== action.payload);
+        list : state.list.filter((value, index) => {
+          return (index !== action.payload);
         })
       };
     case UPDATE_POST :
-      return { ...state, list : [...state.list] }
+      const dataUpdate = state.list.map((value, index) => {
+        return index === Number(action.payload.index) ? action.payload.payload : value;
+      })
+      return { ...state, list : dataUpdate }
     case GET_REQ :
       return { ...state, loading : action.payload };
     case REQ_SUCCESS :

@@ -13,11 +13,11 @@ body {
     box-sizing: border-box;
 }
 :root {
-    --blue: #0080B9;
-    --yellow : #FDC813;
-    --red : #EC4E23;
-    --green : #0B7526;
-    --black : #5B5B5B;
+    --purple: #9667e0;
+    --purple-1 : #d4bbfc;
+    --purple-2 : #ebd9fc;
+    --purple-3 : #f2ebfb;
+    --purple-4 : #fbfaff;
   }
 `
 
