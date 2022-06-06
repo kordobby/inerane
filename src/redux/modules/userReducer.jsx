@@ -51,6 +51,8 @@ export const getUserFB = () => {
     nowUser.forEach( doc => {
       getUserInfo.push({ id: doc.id, ...doc.data() });
     });
+    console.log(getUserInfo);
+    console.log(getUserInfo.userId);
     dispatch(getUser(getUserInfo));
 }};
 
