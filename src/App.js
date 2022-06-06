@@ -24,7 +24,7 @@ import { auth } from './firebase-config';
 
 /* Login Feature :: auth */
 import { onAuthStateChanged, signOut } from 'firebase/auth';
-import { deleteCookie } from './redux/cookies';
+import { getCookie, deleteCookie } from './redux/cookies';
 
 function App() {
   const dispatch = useDispatch();
@@ -46,20 +46,33 @@ function App() {
   const userPropImg = userDataList?.imgUrl;
   const nickName = userDataList?.userName;
   console.log(nickName);
-  /*
-  nowUserState = {
-    user : [  ]
-  }
-  */
-// 로그인 상태관리를 위해 useState 사용 : false(로그아웃 상태), true(로그인 상태)
+
+
+  /* 로그인 상태관리 */
+  // #1. Cookie 여부에 따른 확인
+  // #2. Auth 를 통한 확인
+
+  // 로그인 상태관리를 위해 useState 사용 : false(로그아웃 상태), true(로그인 상태)
+  const userIsLogin = getCookie("user_id");
   const [is_login, setIsLogin] = React.useState(false);
-  const loginCheck = async (user) => {
-    if (user) {
+
+  // #1
+  const loginCheck = () => {
+    if (userIsLogin !== undefined) {
       setIsLogin(true);
     } else {
       setIsLogin(false);
     }
   }
+
+  // #2
+  // const loginCheck = async (user) => {
+  //   if (user) {
+  //     setIsLogin(true);
+  //   } else {
+  //     setIsLogin(false);
+  //   }
+  // }
 
   // Side Effect 확인하는 것이기 때문에, login check는 useEffect
   React.useEffect(() => {
@@ -74,7 +87,7 @@ function App() {
 
   return (
     <>
-      { /* login 상태에 따른 Header 설정 변경 + Posting btn도 비슷하게 구현해봐야지 */ }
+      { /* login 상태에 따른 Header 설정 변경 */ }
       {is_login ? (
         <>
         <HeaderIsLogin name = {nickName} logout = {logout}/>
