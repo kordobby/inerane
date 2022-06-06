@@ -28,15 +28,18 @@ const Post = ( { name, idCheck } ) => {
   // ref about post
   const textRef = React.useRef(null);
   const imgRef = React.useRef(null);
-  console.log(nowPostsState);
-  const addPostHandler = () => {
 
+  const postTime = new Date().toLocaleString();
+  console.log(postTime)
+
+  const addPostHandler = () => {
     setTimeout(() => {
       dispatch(addPostFB({
         userId : name,
         checkId : idCheck,
         ineText : textRef.current?.value,
-        ineImg : imgRef.current?.url
+        ineImg : imgRef.current?.url,
+        postTime : postTime
       }));
       console.log("posted!")
       alert("포스팅완료!")
