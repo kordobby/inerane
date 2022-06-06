@@ -1,3 +1,6 @@
+import React, { useState } from 'react';
+
+import Detail from './Detail';
 /* Style */
 import styled from 'styled-components';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
@@ -11,9 +14,12 @@ import { delPostFB } from '../redux/modules/boardReducer';
 /* Routes */
 import { useNavigate } from 'react-router-dom';
 import { getCookie } from "../redux/cookies";
-const IneCard = ( {id, text, idx, imgUrl, name, checkId} ) => {
+const IneCard = ( { id, text, idx, imgUrl, name, checkId, time } ) => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
+
+  const checkIdCookie = getCookie("user_id");
+
   const deletePostHandler = (id) => {
     // if userName == writer => 삭제 : alert "작성자가 아닙니다!"
     dispatch(delPostFB(id));
@@ -24,11 +30,31 @@ const IneCard = ( {id, text, idx, imgUrl, name, checkId} ) => {
     navigate(`/update/${id}/${idx}`);
   }
 
-  let checkIdCookie = getCookie("user_id");
-  // console.log(checkIdCookie); => 잘 가져오는 것 확인
+  const [ modal, setModal ] = useState(false);
 
+  const modalHandler = () => {
+    modal === true ?  setModal(false) : setModal(true)
+  }
+
+
+
+  //id, text, idx, imgUrl, name, checkId, time
   return (
-    <CardWrap>
+    <>
+    { modal ? (
+    <Detail
+      id = {id}
+      text = {text}
+      imgUrl = {imgUrl}
+      name = {name}
+      checkId = {checkId}
+      time = {time}
+      handler = {modalHandler}
+      ></Detail>
+    ) : (
+      <></>
+    )}
+    <CardWrap onClick = {modalHandler}>
       <div className = "card-header">
         <div className = "card-header__img"></div>
         <span>{name}</span>
@@ -47,6 +73,7 @@ const IneCard = ( {id, text, idx, imgUrl, name, checkId} ) => {
       )
       }
     </CardWrap>
+    </>
   );
 }
 
