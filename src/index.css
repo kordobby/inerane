@@ -121,3 +121,84 @@ input:focus {
 .card-footer__btn:first-child {
   margin-right: 10px;
 }
+
+.card-img__datail {
+  display : flex;
+  padding : 0 50px;
+  justify-content: space-between;
+}
+.post-img__datail {
+  width : 350px;
+  height : 350px;
+  border-radius: 20px;
+}
+
+.card-detail {
+  width : 400px;
+  height: 100%;
+  flex-direction: flex;
+  justify-content: flex-start;
+}
+
+.card--context {
+  background-color: var(--purple-2);
+  border-radius: 20px;
+  height: 100px;
+  padding : 30px;
+  box-sizing: border-box;
+
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.comment-wrap {
+  margin-top: 15px;
+  width : 100%;
+  height: 50px;
+  border-radius: 25px;
+  background-color: var(--purple-2);
+
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding : 5px;
+  box-sizing: border-box;
+}
+
+.comment__input {
+  width : 85%;
+  background-color: white;
+  height: 40px;
+  border-radius: 25px;
+  border : 0;
+  text-align: center;
+}
+
+.comment__btn {
+  height: 40px;
+  width: 40px;
+  border-radius: 20px;
+  border: none;
+  background-color: var(--purple);
+  color : white;
+}
+
+.comment-box {
+  height: 200px;
+  margin-top: 20px;
+  background-color: aquamarine;
+}
+
+.post__like-count {
+  font-size: 30px;
+  display : flex;
+  align-items: center;
+  margin-top: 10px;
+  margin-left: 15px;
+}
+
+.post__like-count span {
+  margin-left: 10px;
+  font-size: 20px;
+}
