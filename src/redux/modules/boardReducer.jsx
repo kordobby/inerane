@@ -1,4 +1,4 @@
-/* Posing Reducer */
+/* Posting Reducer */
 // connect DB
 import { db } from '../../firebase-config';
 import { collection, getDocs, doc, addDoc, deleteDoc, updateDoc } from 'firebase/firestore';
@@ -17,7 +17,7 @@ const GET_REQ = 'boardReducer/GET_REQ';
 const REQ_SUCCESS = 'boardReducer/REQ_SECCESS';
 const REQ_ERROR = 'boardReducer/REQ_ERROR';
 
-// [ READ ]
+// [ CRUD ]
 const LOAD_POST = 'boardReducer/LOAD_POST';
 const ADD_POST = 'boardReducer/ADD_POST';
 const DELETE_POST = 'boardReducer/DELETE_POST';
@@ -94,6 +94,7 @@ export const addPostFB = (payload) => {
 // [ DELETE ]
 export const delPostFB = (payload) => async (dispatch, getState) => {
   const docRef = doc(db, "hamgallery", payload);
+  console.log(docRef);
   await deleteDoc(docRef);
   const post_idx = getState().boardReducer.list.findIndex((value) => {
      console.log(value.id); // 각
@@ -101,7 +102,7 @@ export const delPostFB = (payload) => async (dispatch, getState) => {
    });
   console.log(post_idx); // 배열의 index?
   dispatch(deletePost(post_idx));
-  // dispatch(loadPostFB()); => 리듀서를 고쳤으니 이제 이건 필요가 없다!
+  dispatch(loadPostFB()); //=> 리듀서를 고쳤으니 이제 이건 필요가 없다!
 }
 
 // [ UPDATE ]
@@ -120,7 +121,6 @@ export const updatePostFB = (payload, index) => async (dispatch) => {
 /* REDUCER */
 export default function postReducer(state = initialState, action = {}) {
   console.log(action)
-  console.log(state)
   switch (action.type) {
     case LOAD_POST :
       return { ...state, list : action.payload}
