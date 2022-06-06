@@ -43,6 +43,7 @@ const MainIsLogin = () => {
           name = {value.userId}
           idx = {index}
           id = {value.id}
+          time = {value.postTime}
           checkId = {value.checkId} >
           </IneCard>
         })}
