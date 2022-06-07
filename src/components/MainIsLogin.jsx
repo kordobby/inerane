@@ -63,6 +63,16 @@ const TimeLine = styled.div`
   grid-template-columns:  repeat(4, 25%);
   grid-template-rows : repeat(1, 500px);
   place-items: center;
+
+  @media screen and (max-width: 1300px) {
+    grid-template-columns:  repeat(3, 33.3%);
+  }
+  @media screen and (max-width: 1000px) {
+    grid-template-columns:  repeat(2, 50%);
+  }
+  @media screen and (max-width: 600px) {
+    grid-template-columns:  repeat(1, 100%);
+  }
 `
 const PostingCard = styled.div`
   margin-top: 15px;
