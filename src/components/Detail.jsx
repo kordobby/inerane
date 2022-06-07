@@ -53,12 +53,12 @@ const Detail = ( { id, text, imgUrl, name, checkId, time, handler }) => {
                 <div className = "post__like-count" onClick = {likeHandler}>
                   { UserCounts ? (
                     <>
-                    <FontAwesomeIcon style = {{ color : "salmon"}}icon = {faHeart} />
+                    <FontAwesomeIcon style = {{ cursor : "pointer", color : "salmon"}}icon = {faHeart} />
                     <span> like {likeCountTot.length}</span>
                     </>
                   ) : (
                     <>
-                    <FontAwesomeIcon style = {{ color : "var(--purple)"}}icon = {faHeart} />
+                    <FontAwesomeIcon style = {{ cursor : "pointer", color : "var(--purple)"}}icon = {faHeart} />
                     <span> like {likeCountTot.length}</span>
                     </>
                   )
