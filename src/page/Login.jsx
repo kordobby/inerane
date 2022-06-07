@@ -25,23 +25,28 @@ const Login = () => {
   const pwRef = React.useRef();
 
   const loginFB = async() => {
-    console.log(idRef.current.value);
+
+    try {
+    // console.log(idRef.current.value);
     const userInfo = await signInWithEmailAndPassword( auth,
-                                                       idRef.current.value,
-                                                       pwRef.current.value);
+      idRef.current.value,
+      pwRef.current.value);
 
-    // 현재 로그인 중인 유저 정보 끌어오기
-    console.log(userInfo.user.email);
+      setCookie("user_id", idRef.current.value);
+      let cookie = getCookie("user_id");
+      console.log(cookie);
   
-    setCookie("user_id", idRef.current.value);
-    let cookie = getCookie("user_id");
-    console.log(cookie);
-
-    dispatch(getUserFB());
-
-    alert("어서오세요! :-)")
-    navigate('/') 
+      dispatch(getUserFB());
+    // 현재 로그인 중인 유저 정보 끌어오기
+    // console.log(userInfo.user.email);
+      alert("어서오세요! :-)")
+      navigate('/') 
+    } catch (error) {
+      alert("Id 또는 비밀번호가 틀렸습니다!")
+      idRef.current.value = "";
+      pwRef.current.value = "";
     }
+  }
 
 return (
   <LoginPage>
@@ -105,6 +110,14 @@ export const Button = styled.button`
 
   font-size: 18px;
   color : black;
+
+  background-color: var(--purple);
+  color : white;
+  &:hover {
+    background-color: black;
+    color : white;
+  }
+  border : none;
 `
 
 export const Line = styled.div`
