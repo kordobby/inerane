@@ -39,24 +39,32 @@ const SignUp = () => {
   /* Sign-up Func */
   // 비동기 요청 => FB에 요청을 하는 것이니까! 그러니, async-await 사용
   const signUpFB = async () => {
-  console.log(fileLinkRef);
-  // return;
-  const userInfo = await createUserWithEmailAndPassword( auth,
-                                                           idRef.current.value,
-                                                           pwRef.current.value );
-  /* DB DATA 저장 확인 => DB에 저장됨 */
-  const userData = await addDoc(collection(db, "user-info"), { userId:idRef.current.value,
-                                                               userName:nameRef.current?.value,
-                                                               imgUrl:fileLinkRef.current?.url });
-  
-  setCookie("user_id", idRef.current.value);
-  let cookie = getCookie("user_id");
-  console.log(cookie);
+  const password = pwRef.current.value;
+  const email = idRef.current.value;
+  const checkEmail = /^[A-Za-z0-9_\.\-]+@[A-Za-z0-9\-]+\.[A-Za-z0-9\-]+/
 
-  dispatch(getUserFB());
-  console.log("끝")
-  alert("회원가입 성공! 바로 로그인 해드릴게요! :-)")
-  // navigate('/')
+  if ( password.length < 6) {
+    alert("비밀번호는 6자리 이상으로 작성해주세요!")
+  } else if ( !checkEmail.test(email) ) {
+    alert("이메일 형식이 올바르지 않습니다!")
+  } else {
+      const userInfo = await createUserWithEmailAndPassword( auth,
+                                                              idRef.current.value,
+                                                              pwRef.current.value );
+      /* DB DATA 저장 확인 => DB에 저장됨 */
+      const userData = await addDoc(collection(db, "user-info"), { userId:idRef.current.value,
+                                                                  userName:nameRef.current?.value,
+                                                                  imgUrl:fileLinkRef.current?.url });
+      
+      setCookie("user_id", idRef.current.value);
+      let cookie = getCookie("user_id");
+      console.log(cookie);
+
+      dispatch(getUserFB());
+      console.log("끝")
+      alert("회원가입 성공! 바로 로그인 해드릴게요! :-)")
+      navigate('/')
+    }
  };
 
   const uploadProfileFB = async (event) => {
