@@ -56,23 +56,23 @@ function App() {
   const userIsLogin = getCookie("user_id");
   const [is_login, setIsLogin] = React.useState(false);
 
-  // #1
-  const loginCheck = () => {
-    if (userIsLogin !== undefined) {
-      setIsLogin(true);
-    } else {
-      setIsLogin(false);
-    }
-  }
-
-  // #2
-  // const loginCheck = async (user) => {
-  //   if (user) {
+  // #1 망한 버전임
+  // const loginCheck = () => {
+  //   if (userIsLogin !== undefined) {
   //     setIsLogin(true);
   //   } else {
   //     setIsLogin(false);
   //   }
   // }
+
+  // #2
+  const loginCheck = async (user) => {
+    if (user) {
+      setIsLogin(true);
+    } else {
+      setIsLogin(false);
+    }
+  }
 
   // Side Effect 확인하는 것이기 때문에, login check는 useEffect
   React.useEffect(() => {
