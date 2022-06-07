@@ -118,6 +118,11 @@ input:focus {
   border-radius: 15px;
 }
 
+.card-footer__btn:hover {
+  background-color: var(--purple);
+  color : white;
+}
+
 .card-footer__btn:first-child {
   margin-right: 10px;
 }
@@ -182,12 +187,40 @@ input:focus {
   border: none;
   background-color: var(--purple);
   color : white;
+  display : flex;
+  justify-content: center;
+  align-items: center;
 }
 
 .comment-box {
   height: 200px;
   margin-top: 20px;
-  background-color: aquamarine;
+}
+
+.comment-header span {
+  font-size: 20px;
+  font-weight: 600;
+}
+
+.comment-main {
+  margin-top: 12px;
+}
+
+.comment-main__text {
+  width : 100%;
+  display : flex;
+  align-items: center;
+}
+.comment-main__pic {
+  width : 10px;
+  height: 10px;
+  border-radius: 10px;
+  background-color: var(--purple-1);
+  margin-right: 8px;
+}
+
+.comment-main__text  {
+  margin-bottom: 10px;
 }
 
 .post__like-count {
