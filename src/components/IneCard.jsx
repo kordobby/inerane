@@ -47,7 +47,7 @@ const IneCard = ( { id, text, idx, imgUrl, name, checkId, time } ) => {
       text = {text}
       imgUrl = {imgUrl}
       name = {name}
-      checkId = {checkId}
+      checkId = {checkIdCookie}
       time = {time}
       handler = {modalHandler}
       ></Detail>
@@ -56,7 +56,8 @@ const IneCard = ( { id, text, idx, imgUrl, name, checkId, time } ) => {
     )}
     <CardWrap onClick = {modalHandler}>
       <div className = "card-header">
-        <div className = "card-header__img"></div>
+        <img className = "card-header__img" src = {"https://firebasestorage.googleapis.com/v0/b/inerane-6b7c7.appspot.com/o/images%2Fhamine.png?alt=media&token=1cf66cbe-c920-4348-bd3b-23ea392dca54"}/>
+        {/* <div className = "card-header__img"></div> */}
         <span>{name}</span>
       </div>
       <div className = "card-main">
@@ -82,7 +83,7 @@ const CardWrap = styled.div`
   margin-bottom: 20px;
   width : 300px;
   height : 400px;
-  background-color: white;
+  background-color: var(--purple-4);
   border-radius: 30px;
   box-shadow: rgba(99, 99, 99, 0.2) 0px 2px 8px 0px;
 
