@@ -4,7 +4,8 @@ import React, { useState, useEffect } from 'react';
 import styled from 'styled-components';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faHeart } from '@fortawesome/free-solid-svg-icons';
-
+import { faPaperPlane } from '@fortawesome/free-solid-svg-icons';
+import { Line } from '../page/Login';
 /* Reducer */
 import { useSelector, useDispatch } from 'react-redux';
 import { delLikeFB, loadLikeFB } from '../redux/modules/likeReducer';
@@ -23,6 +24,7 @@ const Detail = ( { id, text, imgUrl, name, checkId, time, handler }) => {
   // const history = LikeCounts.filter((value) => {return ( value.user_name === checkId && value.post_id === id)});
   // 현재로그인한 유저가 좋아요를 누른 이력 확인 => 필요없는 로직
   const addLike = () => {
+    console.log(checkId);
     dispatch(addLikeFB({user_name : checkId, post_id : id})); // 해당 포스트의 id 값과 좋아요를 누른 유저의 id를 DB 저장
   }
 
@@ -68,17 +70,33 @@ const Detail = ( { id, text, imgUrl, name, checkId, time, handler }) => {
                   <div className = "card-header">
                     <div className = "card-header__img"></div>
                     <span style = {{ fontWeight : "800" }}>{name}</span>
-                    <span>{time}</span>
+                    <span style = {{ marginLeft : "90px", color : "grey"}}>{time}</span>
                   </div>
                   <div className = "card--context">
                     <span>{text}</span>
                   </div>
                   <div className = "comment-wrap">
                       <input placeholder = "댓글을 작성해주세요!" className = "comment__input"></input>
-                      <button className = "comment__btn">ic</button>
+                      <button className = "comment__btn"><FontAwesomeIcon icon = {faPaperPlane} /></button>
                   </div>
                   <div className = "comment-box">
-                    <div> comments {/* 코멘트 달리는거 나중에 컴포넌트 만들 예정 */}</div>
+                    <div>
+                      <div className = "comment-header">
+                        <span>Comments</span>
+                      </div>
+                      <div className = "comment-main">
+                        <div className = "comment-main__text">
+                          <div className = "comment-main__pic"></div>
+                          <span> 햄이네 : 댓글기능은 업데이트 예정이라네~</span>
+                        </div>
+                        <Line style = {{ backgroundColor : "var(--purple-2)", width : "100%"}}></Line>
+                        <div className = "comment-main__text">
+                          <div className = "comment-main__pic"></div>
+                          <span> 아이네 : 그렇다네~</span>
+                        </div>
+                        <Line style = {{ backgroundColor : "var(--purple-2)", width : "100%"}}></Line>
+                      </div>
+                    </div>
                   </div>
                 </div>
               </div>
@@ -111,17 +129,15 @@ const DetailModal = styled.div`
   justify-content: center;
   align-items: center;
   z-index : 5;
-  &:hover {
-    cursor : pointer;
-  }
 `
 
 const DatailBox = styled.div`
   background-color: white;
-  width : 90%;
-  height: 90%;
+  width : 92%;
+  height: 88%;
   padding-top : 40px;
   box-sizing: border-box;
+  border-radius: 30px;
 `
 
 export default Detail;
