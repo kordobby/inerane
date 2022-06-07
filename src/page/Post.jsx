@@ -64,7 +64,7 @@ const Post = ( { name, idCheck } ) => {
 return (
     <LoginPage>
       <LoginPageBox style = {{height : "500px"}}>
-        <UserTitle>MY SWEET INE {name}</UserTitle>
+        <UserTitle>내가 그린 햄이네!</UserTitle>
         <InputBox ref = {textRef} type = "text" placeholder ="내가 그린 햄이네를 소개해주세요!"></InputBox>
         <Line/> 
         <div className = "filebox">
