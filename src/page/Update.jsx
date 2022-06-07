@@ -72,7 +72,7 @@ const Update = ( { name, idCheck } ) => {
   return (
     <LoginPage>
       <LoginPageBox style = {{height : "500px"}}>
-        <UserTitle>MY SWEET INE</UserTitle>
+        <UserTitle>수정할거라네</UserTitle>
         <InputBox ref = {newTextRef} type = "text" placeholder ="내가 그린 햄이네를 소개해주세요!"></InputBox>
         <Line/> 
         <div className = "filebox">
