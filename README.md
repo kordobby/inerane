@@ -9,7 +9,7 @@
 
   
 ## 📽 배포
-https://kevinkim910408.github.io/MiniProject_hogwarts/#/house
+[https://kevinkim910408.github.io/MiniProject_hogwarts/#/house](http://62442.s3-website.ap-northeast-2.amazonaws.com/)
 
 
 ## 과제 계획
