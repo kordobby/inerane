@@ -24,7 +24,7 @@ const Login = () => {
   const idRef = React.useRef();
   const pwRef = React.useRef();
 
-  const loginFB = async() => {
+  const loginFB = async() => {  
 
     try {
     // console.log(idRef.current.value);
