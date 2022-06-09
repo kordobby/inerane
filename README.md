@@ -9,7 +9,11 @@
 
   
 ## 📽 배포
+<<<<<<< HEAD
 http://62442.s3-website.ap-northeast-2.amazonaws.com/
+=======
+[https://kevinkim910408.github.io/MiniProject_hogwarts/#/house](http://62442.s3-website.ap-northeast-2.amazonaws.com/)
+>>>>>>> 6740c514cd546339ec6ed1bdaeefa0a552e49c0b
 
 
 ## 과제 계획
